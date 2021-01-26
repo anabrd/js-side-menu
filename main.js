@@ -25,24 +25,30 @@ function $(query, arr) {
 }
 
 function expandToggle(e) {
-    console.log(e)
+    // console.log(e)
     e.stopPropagation();
     for (let i = 0; i < e.target.children.length; i++) {
 
         let display = e.target.children[i].style.display;
 
-        if (display == "none" || display == "")
-        {
+        if (display == "none" || display == "") {
             e.target.children[i].style.display = "block";
-        }
-        else {
+            if (e.target.children[i].classList.contains("collapsable") == false) {
+                e.stopPropagation();
+                e.target.children[i].addEventListener("click", info)
+            }
+        } else {
             e.target.children[i].style.display = "none";
         }
-}
-
+    }
 }
 
 for (let i = 0; i < $(".collapsable").length; i++) {
     $(".collapsable")[i].addEventListener("click", expandToggle);
+}
+
+
+function info(e) {
+    alert(`You are being redirected to ${e.target.innerText}`)
 }
 
